@@ -1,21 +1,20 @@
 # 1. Start from a lightweight Node.js image
 FROM node:20-alpine
 
-# 2. Create a working directory inside the container
+# 2. Create working directory
 WORKDIR /app
 
-# 3. Copy package.json and package-lock.json
+# 3. Copy package.json and optionally package-lock.json
 COPY package*.json ./
 
 # 4. Install dependencies
-RUN npm install --production
+RUN npm config set registry https://registry.npmjs.org/ && npm install --production
 
-# 5. Copy all other project files
+# 5. Copy rest of app
 COPY . .
 
-# 7. Expose the app port
+# 6. Expose port
 EXPOSE 3000
 
-# 8. Start your app
+# 7. Run app
 CMD ["node", "server.js"]
-
