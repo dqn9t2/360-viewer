@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>360 Viewer</title>
+
+    <!-- ✅ Include required styles and scripts for PSV v4.7.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4.7.2/dist/photo-sphere-viewer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uevent@2/browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/photo-sphere-viewer@4.7.2/dist/photo-sphere-viewer.min.js"></script>
+
+    <style>
+      body { margin: 0; }
+      #viewer { width: 100vw; height: 100vh; }
+    </style>
+  </head>
+
+  <body>
+    <div id="viewer"></div>
+
+    <script>
+      // Get image filename from URL path
+      const id = window.location.pathname.split("/").pop();
+      const imageUrl = `/uploads/${id}`;
+
+      // ✅ Initialize viewer using correct constructor and options
+      const viewer = new PhotoSphereViewer.Viewer({
+        container: document.getElementById("viewer"),
+        panorama: imageUrl,
+        navbar: true,
+        defaultZoomLvl: 50, // Zoom level from 0 (zoomed out) to 100 (zoomed in)
+        loadingTxt: "Loading 360 image...",
+      });
+
+      // Optional: Set exact field of view after initialization
+      viewer.setFov(70); // FOV in degrees
+    </script>
+  </body>
+</html>

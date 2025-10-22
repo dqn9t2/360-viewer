@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>360 Viewer Upload</title>
+</head>
+<body>
+  <h1>Upload a 360° Image</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/*" required />
+    <button type="submit">Upload</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch("/upload", { method: "POST", body: formData });
+      const data = await res.json();
+      document.getElementById("result").innerHTML = `
+        <p>✅ Uploaded successfully!</p>
+        <a href="${data.shareLink}" target="_blank">View 360 Image</a>
+      `;
+    });
+  </script>
+</body>
+</html>
