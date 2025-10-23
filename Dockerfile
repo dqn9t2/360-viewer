@@ -1,24 +1,18 @@
-# 1. Start from a lightweight Node.js image
-FROM node:20-alpine
+# Use official Node.js LTS image
+FROM node:18
 
-# 2. Create a working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# 3. Copy package.json and package-lock.json
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# 4. Install dependencies
 RUN npm install
 
-# 5. Copy all other project files
+# Copy the rest of the app
 COPY . .
 
-# 6. Make sure uploads folder exists
-RUN mkdir -p ./public/uploads
+# Expose the port your app runs on
+EXPOSE 4000
 
-# 7. Expose the app port
-EXPOSE 3000
-
-# 8. Start your app
+# Start the server
 CMD ["node", "server.js"]
-
